@@ -1,0 +1,105 @@
+
+using System.Collections.Generic;
+using System;
+class HelloWorld 
+{
+    static void Main() 
+    {
+        Console.WriteLine("Вам интересно какой ваш зз, но вам слишком лень искать в интернете?(но не лень заходить в мою программу)?\n Сейчас мы определим ваш знак зодиака!");
+        Console.Write("Введите год вашего рождения: ");
+        int year = int.Parse(Console.ReadLine());
+        Console.Write("Месяц: ");
+        int month = int.Parse(Console.ReadLine());
+        Console.Write("День: ");
+        int day = int.Parse(Console.ReadLine());
+    
+        var zodiac = ZodiacReal(year, month, day);
+        var zYear = year%12;
+        var zodiacalYear = yearZodiac[zYear];
+        Console.WriteLine("Поздравляем, вы - {0}, а родились вы в год {1}!", zodiac, zodiacalYear);
+    }
+    
+    public static string ZodiacReal(int year, int month, int day)
+    {
+        var convertedDays = MonthsToDays(month, day);
+        var zodiacSignNumber = DaysToNumber(convertedDays);
+    
+        var zodiacSign = realZodiac[zodiacSignNumber];
+   
+        return zodiacSign;
+    }
+    
+    public static int MonthsToDays(int month, int days)
+    {
+        days += (month-1)*28;
+        var addDays = new Dictionary<int, int>()
+        {
+            { 1, 0},
+            { 2, 3},
+            { 3, 3},
+            { 4, 6},
+            { 5, 8},
+            { 6, 11},
+            { 7, 13},
+            { 8, 16},
+            { 9, 19},
+            { 10, 21},
+            { 11, 23},
+            { 12, 26}
+        };  
+        days += addDays[month];
+        return days;
+    }
+    
+    public static int DaysToNumber(int days)
+    {
+        if (days < 21) days = 1;
+        else if (52 > days && days >= 21) days = 2;
+        else if (81 > days && days >= 52) days = 3;
+        else if (112 > days && days >= 81) days = 4;
+        else if (142 > days && days >= 112) days = 5;
+        else if (173 > days && days >= 142) days = 6;
+        else if (203 > days && days >= 173) days = 7;
+        else if (234 > days && days >= 203) days = 8;
+        else if (264 > days && days >= 234) days = 9;
+        else if (295 > days && days >= 264) days = 10;
+        else if (325 > days && days >= 295) days = 11;
+        else if (355 > days && days >= 325) days = 12;
+        else days = 13;
+        return days;
+    }
+    
+    public static Dictionary<int, string> realZodiac = new Dictionary<int, string>()
+    {
+        { 1, "козерог"},
+        { 2, "водолей"},
+        { 3, "рыбы"},
+        { 4, "овен"},
+        { 5, "телец"},
+        { 6, "близнецы"},
+        { 7, "рак"},
+        { 8, "лев"},
+        { 9, "дева"},
+        { 10, "весы"},
+        { 11, "скорпион"},
+        { 12, "стрелец"},
+        { 13, "козерог"},
+    };
+    
+    public static Dictionary<int, string> yearZodiac = new Dictionary<int, string>()
+    {
+        { 0, "обезьяны"},
+        { 1, "петуха"},
+        { 2, "собаки"},
+        { 3, "свиньи"},
+        { 4, "крысы"},
+        { 5, "быка"},
+        { 6, "тигра"},
+        { 7, "кота"},
+        { 8, "дракона"},
+        { 9, "змеи"},
+        { 10, "лошади"},
+        { 11, "козы"}
+    };
+}
+
